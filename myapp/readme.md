@@ -1,6 +1,6 @@
 Requirements:
-Npm@6.x
-Nodejs@12.x
+Npm 6.x
+Nodejs 12.x
 MySQL 8.x
 
 Setup:
