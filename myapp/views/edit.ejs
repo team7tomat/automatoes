@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Team 7</title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="shortcut icon" href="img/tomat.png">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=2.0;">
+	</head>
+	<body>
+        <header class="site-header">
+            <h1 class="site-title">Logged In</h1>
+        </header>
+
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/account" class="selected">Account</a>
+        </nav>
+
+        <main>
+            <article class="form">
+				<header>
+					<h1>Edit:</h1>
+
+					<div class="table-fit">
+						<form action="edit" method="POST">
+	                    <table style="margin: auto; margin-top: 10%; margin-bottom: 5%;">
+							<tr>
+								<th>Plant id</th>
+								<th>Plant type</th>
+								<th>Luxgoal</th>
+								<th>Blue</th>
+								<th>White</th>
+								<th>Red</th>
+								<th>Night begin</th>
+								<th>Night end</th>
+								<th>Intensity</th>
+							</tr>
+
+			          		<%
+			          		if(plantData.length!=0){
+			          		var i=1;
+			          		plantData.forEach(function(data){
+			          		%>
+
+			          		<tr>
+			          			<td><input name="plantid" min=0 max=9999 type="number" readonly value=<%=data.plantid %>></td>
+			          			<td><input name="planttype" type="text" style="height: 22px; width: 100%; padding: 1px 0px; border: 2px solid #eee; margin-bottom: 0px; box-sizing:border-box;" value=<%=data.planttype %>></td>
+			          			<td><input name="luxgoal" min=0 max=9999 type="number" value=<%=data.luxgoal %>></td>
+			          			<td><input name="blue" min=0 max=100 type="number" value=<%=data.blue %>></td>
+			          			<td><input name="white" min=0 max=100 type="number" value=<%=data.white %>></td>
+			          			<td><input name="hred" min=0 max=100 type="number" value=<%=data.hred %>></td>
+			          			<td><input name="nightbegin" type="time" value=<%=data.nightbegin %>></td>
+			          			<td><input name="nightend" type="time" value=<%=data.nightend %>></td>
+			          			<td><input name="intensity" min=0 max=100 type="number" value=<%=data.intensity %>></td>
+			          		</tr>
+			          		<%  i++; }) %>
+			          		<% } else{ %>
+			          			<tr>
+			          				<td colspan="7">No Data Found</td>
+			          			</tr>
+			          		<% } %>
+
+	          	</table>
+				<div class="form">
+					<input type="submit" value="Submit">
+				</div>
+			</form>
+
+			</div>
+
+				</header>
+
+            </article>
+
+        </main>
+
+
+        <footer class="site-footer">
+            <hr>
+        </footer>
+	</body>
+</html>

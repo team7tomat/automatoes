@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Team 7</title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="shortcut icon" href="img/tomat.png">
+        <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=2.0;">
+    </head>
+    <body>
+        <header class="site-header">
+            <h1 class="site-title">Login</h1>
+        </header>
+
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/account" class="selected">Account</a>
+        </nav>
+
+        <main>
+            <article class="form">
+                <div class="login-form">
+                  <h1>Login Form</h1>
+                  <form action="login" method="POST">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="submit" value="Login">
+                  </form>
+                </div>
+
+                <div class="login-form"> <br>
+                    <a href="/resetpw"><input type="submit" value="Reset password"></a>
+                </div>
+            </article>
+
+        </main>
+
+        <footer class="site-footer">
+            <hr>
+        </footer>
+    </body>
+</html>

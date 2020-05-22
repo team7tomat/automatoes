@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Team 7</title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="shortcut icon" href="img/tomat.png">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=2.0;">
+	</head>
+	<body>
+        <header class="site-header">
+            <h1 class="site-title">Logged In</h1>
+        </header>
+
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/account" class="selected">Account</a>
+        </nav>
+
+        <main>
+			<div class="table-fit">
+			<%
+			if(plantData.length!=0){
+			var i=1;
+			plantData.forEach(function(data){
+			%>
+			<img src="<%=data.image %>" alt="tomat" style="margin: 0 auto; margin-top: 1%; width: 640px; height: 360px; display: table-cell; vertical-align: middle;"/>
+			<%  i++; }) %>
+			<% } else{ %>
+			<% } %>
+
+				<table style="margin: auto; margin-top: 1%; margin-bottom: 1%;">
+					<tr>
+						<th>Plant id</th>
+						<th>Plant type</th>
+						<th>Luxgoal</th>
+						<th>Blue</th>
+						<th>White</th>
+						<th>Red</th>
+						<th>Night begin</th>
+						<th>Night end</th>
+						<th>Pins</th>
+						<th>Intensity</th>
+					</tr>
+					<%
+					if(plantData.length!=0){
+					var i=1;
+					plantData.forEach(function(data){
+					%>
+					<tr>
+						<td><%=data.plantid %></td>
+						<td><%=data.planttype %></td>
+						<td><%=data.luxgoal %></td>
+						<td><%=data.blue %></td>
+						<td><%=data.white %></td>
+						<td><%=data.hred %></td>
+						<td><%=data.nightbegin %></td>
+						<td><%=data.nightend %></td>
+						<td><%=data.pins %></td>
+						<td><%=data.intensity %></td>
+					</tr>
+		<%  i++; }) %>
+		<% } else{ %>
+			<tr>
+				<td colspan="7">No Data Found</td>
+			</tr>
+		<% } %>
+	</table>
+		<%
+		if(plantData.length!=0){
+		var i=1;
+		plantData.forEach(function(data){
+		%>
+			<div class="form">
+				<form action="/edit/<%= data.plantid %>" method="get">
+					  <input type="submit" value="Edit">
+				</form>
+			</div>
+			<div class="form">
+				<form action="/delete/<%= data.plantid %>" method="get">
+					<input type="submit" value="Delete">
+				</form>
+			</div>
+		<%  i++; }) %>
+		<% } %>
+
+			<div class="form">
+    			<form action="logout" method="POST">
+    				<input type="submit" value="Logout">
+    			</form>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+
+        </footer>
+	</body>
+</html>

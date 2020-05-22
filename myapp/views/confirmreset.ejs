@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Team 7</title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="shortcut icon" href="img/tomat.png">
+        <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=2.0;">
+    </head>
+    <body>
+        <header class="site-header">
+            <h1 class="site-title">Confirm Reset</h1>
+        </header>
+
+        <nav class="navbar">
+            <!-- <a href="/">Home</a> -->
+            <!-- <a href="/about">About</a> -->
+            <!-- <a href="login.html">Login</a> -->
+            <!-- <a href="/account">Account</a> -->
+        </nav>
+
+        <main>
+            <article class="form">
+
+                <div class="resetpw-form">
+                    <h1>Reset Form</h1>
+                    <form action="" method="POST">
+                        <input type="password" name="newpw" placeholder="New password" required>
+                        <input type="password" name="confirmpw" placeholder="Confirm new password" required>
+                        <input id="emailid" type="hidden" name="email" value="">
+                        <input type="submit" value="Confirm">
+                    </form>
+                </div>
+
+            </article>
+        </main>
+
+        <script>
+        let email = document.getElementById("emailid");
+        email.value = window.location.href.match(/.*\/(.*)\?/)[1]; // get the second group, the first group is everything up until the '?'
+
+        let form = document.getElementsByTagName("form")[0];
+        form.action = form.action.match(/.*\//)[0];
+        </script>
+        <footer class="site-footer">
+            <hr>
+        </footer>
+	</body>
+</html>

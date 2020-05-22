@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Team 7</title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="shortcut icon" href="img/tomat.png">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=2.0;">
+	</head>
+	<body>
+        <header class="site-header">
+            <h1 class="site-title">Logged In</h1>
+        </header>
+
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/account" class="selected">Account</a>
+        </nav>
+
+        <main>
+            <article class="form">
+				<header>
+                    <h2>Your plants:</h2>
+
+					<table style="margin: auto;">
+		<tr>
+			<th>Plant id</th>
+		</tr>
+
+		<%
+		if(plantData.length!=0){
+		var i=1;
+		plantData.forEach(function(data){
+		%>
+		<tr>
+			<td>
+				<div>
+				<form action="plants" method="get">
+					<a href="/plants/<%=data.plantid %>"><%=data.plantid %></a>
+				</div>
+				</td>
+			</form>
+		</tr>
+		<%  i++; }) %>
+		<% } else{ %>
+			<tr>
+				<td colspan="7">No Data Found</td>
+			</tr>
+		<% } %>
+	</table>
+	<br>
+	<div>
+		<form action="/account/add-plant" method="get">
+			<input type=submit value="Add plant">
+		</form>
+
+				<form action="logout" method="POST">
+					<input type="submit" value="Logout">
+				</form>
+					</div>
+				</header>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+
+        </footer>
+	</body>
+</html>

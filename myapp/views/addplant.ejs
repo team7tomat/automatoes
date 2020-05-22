@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Team 7</title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="shortcut icon" href="img/tomat.png">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=2.0;">
+	</head>
+	<body>
+        <header class="site-header">
+            <h1 class="site-title">Logged In</h1>
+        </header>
+
+		<nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/account" class="selected">Account</a>
+        </nav>
+
+		<main>
+			<article class="form">
+				<header>
+					<h1>New Plant:</h1>
+
+					<div class="table-fit">
+						<form action="add-plant" method="POST">
+	                    <table style="margin: auto; margin-top: 10%;">
+							<tr>
+								<th>IP</th>
+								<th>Plant type</th>
+								<th>Luxgoal</th>
+								<th>Blue</th>
+								<th>White</th>
+								<th>Red</th>
+								<th>Night begin</th>
+								<th>Night end</th>
+								<th>Intensity</th>
+							</tr>
+
+
+			          		<tr>
+								<td><input name="ip" type="text" required="required" style="height: 22px; width: 100%; padding: 1px 0px; border: 2px solid #eee; margin-bottom: 0px; box-sizing:border-box;"></td>
+			          			<td><input name="planttype" type="text" style="height: 22px; width: 100%; padding: 1px 0px; border: 2px solid #eee; margin-bottom: 0px; box-sizing:border-box;" value="default"></td>
+			          			<td><input name="lux" min=0 max=9999 type="number" value=8000 ></td>
+			          			<td><input name="blue" min=0 max=100 type="number" value=1 ></td>
+			          			<td><input name="white" min=0 max=100 type="number" value=1 ></td>
+			          			<td><input name="red" min=0 max=100 type="number" value=1 ></td>
+			          			<td><input name="nightbegin" type="time" value=1 ></td>
+			          			<td><input name="nightend" type="time" value=1 ></td>
+			          			<td><input name="intensity" min=0 max=100 type="number" value=0 ></td>
+			          		</tr>
+
+	          	</table>
+				<table style="margin: auto; margin-bottom: 5%;">
+					<tr>
+						<th>Blue pin</th>
+						<th>White pin</th>
+						<th>Hred pin</th>
+						<th>Fred pin</th>
+					</tr>
+					<tr>
+						<td><input name="bpin" type="text" value=12 style="height: 22px; width: 100%; padding: 1px 0px; border: 2px solid #eee; margin-bottom: 0px; box-sizing:border-box;" ></td>
+						<td><input name="wpin" type="text" value=13 style="height: 22px; width: 100%; padding: 1px 0px; border: 2px solid #eee; margin-bottom: 0px; box-sizing:border-box;" ></td>
+						<td><input name="hrpin" type="text" value=16 style="height: 22px; width: 100%; padding: 1px 0px; border: 2px solid #eee; margin-bottom: 0px; box-sizing:border-box;" ></td>
+						<td><input name="lrpin" type="text" value=19 style="height: 22px; width: 100%; padding: 1px 0px; border: 2px solid #eee; margin-bottom: 0px; box-sizing:border-box;" ></td>
+					</tr>
+				</table>
+				<div class="form">
+					<input type="submit" value="Submit">
+				</div>
+			</form>
+
+			</div>
+
+				</header>
+
+            </article>
+		</main>
+	</body>
+</html>
