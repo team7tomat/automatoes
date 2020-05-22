@@ -2,11 +2,7 @@
 
 Mysql 8.x
 
-Setup:
-
-Install workbench 8.x
-
-Setup connection
+# Setup:
 
 Run setup.sql
 
