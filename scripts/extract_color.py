@@ -81,6 +81,7 @@ def extract_color_from_rectangles(filepath, rectangles, output_to_file=False, pr
 	for points, count in zip(rectangles, range(len(rectangles))):
 		left, top, right, bottom = points[0], points[1], points[2], points[3]
 
+		# is used to display the color on a new file, but depends on what value 'output_to_file' has
 		result_rectangle = np.zeros((bottom-top, right-left,3), np.uint8)
 		ripe = False
 		ripe_color = [150, 90, 100]
@@ -99,7 +100,6 @@ def extract_color_from_rectangles(filepath, rectangles, output_to_file=False, pr
 			print(f"RED\tcount: {red_count}\tpercentage: {red_percentage}%\tavg color: {red_sum}")
 			print(f"GREEN\tcount: {green_count}\tpercentage: {green_percentage}%\tavg color: {green_sum}")
 			print(f"BLUE\tcount: {blue_count}\tpercentage: {blue_percentage}%\tavg color: {blue_sum}")
-
 
 		for y in range(shape[0]):
 			for x in range(shape[1]):
@@ -142,13 +142,13 @@ def get_colors(image, points):
 			rgb = image[val_y, val_x]
 			np.add(total_sum, rgb, total_sum)
 
-			if is_greater(rgb[0], [rgb[1], rgb[2]]): # red
+			if is_greater(rgb[0], [rgb[1], rgb[2]]): # red is greatest
 				np.add(red_sum, rgb, red_sum)
 				red_count += 1
-			elif is_greater(rgb[1], [rgb[0], rgb[2]]): # green
+			elif is_greater(rgb[1], [rgb[0], rgb[2]]): # green is greatest
 				np.add(green_sum, rgb, green_sum)
 				green_count += 1
-			elif is_greater(rgb[2], [rgb[1], rgb[0]]): # blue
+			elif is_greater(rgb[2], [rgb[1], rgb[0]]): # blue is greatest
 				np.add(blue_sum, rgb, blue_sum)
 				blue_count += 1
 

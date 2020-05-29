@@ -38,7 +38,8 @@ def point_is_in_rectangle(center_point, box_points):
 	left, top, right, bottom = box_points[0], box_points[1], box_points[2], box_points[3]
 	center_x, center_y = center_point[0], center_point[1]
 
-	return True if (center_x > left and center_y > top and center_x < right and center_y < bottom) else False
+	# check if center_x, center_y is inside the box
+	return (center_x > left and center_y > top and center_x < right and center_y < bottom)
 
 
 def main():
@@ -46,7 +47,7 @@ def main():
 	predict_image(filepath, minimum_percentage, extract_detected_objects, load_model())
 
 
-def filter_rectangles(objects):
+def filter_rectangle_duplicates(objects):
 	total_duplicates = []
 	final = []
 
@@ -88,6 +89,7 @@ def filter_rectangle_ratios(objects):
 
 		ratio = width/height if width >= height else height/width
 
+		# include rectangles that has a ratio less than 2; this will exclude rectangles with ratio bigger than 2
 		if not ratio > 2:
 			final.append(object)
 
@@ -100,30 +102,33 @@ def write_rectangles_to_file(objects, filepath, new_filepath):
 	dim_y, dim_x = shape[0], shape[1]
 
 	for object in objects:
-		#black_pixel = np.zeros((1,3), np.uint8)
-		black_pixel = ([255, 255, 255])
+		white_pixel = ([255, 255, 255])
 		points = object[-1]
 
 		left, top, right, bottom = points[0], points[1], points[2], points[3]
 		for y in range(top, bottom):
+			# out-of-bounds check
 			val_y = y if y < dim_y else dim_y - 1
 
-			image[val_y, left] = black_pixel
+			image[val_y, left] = white_pixel # set the 'left' pixel border
 
+			# out-of-bounds check
 			if right >= dim_x:
-				image[val_y, dim_x - 1] = black_pixel
+				image[val_y, dim_x - 1] = white_pixel # set the 'right' pixel border
 			else:
-				image[val_y, right] = black_pixel
+				image[val_y, right] = white_pixel # set the 'right' pixel border
 
 		for x in range(left, right):
+			# out-of-bounds check
 			val_x = x if x < dim_x else dim_x - 1
 
-			image[top, val_x] = black_pixel
+			image[top, val_x] = white_pixel # set the 'top' pixel border
 
+			# out-of-bounds check
 			if bottom >= dim_y:
-				image[dim_y - 1, val_x] = black_pixel
+				image[dim_y - 1, val_x] = white_pixel # set the 'bottom' pixel border
 			else:
-				image[bottom, val_x] = black_pixel
+				image[bottom, val_x] = white_pixel # set the 'bottom' pixel border
 
 
 	io.imsave(new_filepath, image, plugin=None, check_contrast=False)
@@ -163,16 +168,15 @@ def predict_image(filepath, minimum_percentage, extract_detected_objects, detect
 		formatted = [ [obj["name"], obj["percentage_probability"], obj["box_points"]] for obj in detections ]
 		sorted_list = sorted(formatted, key=lambda obj: obj[2], reverse=True)
 
-		write_rectangles_to_file(formatted, filepath, "predictions/original.jpg")
+		# uncomment the following write_rectangles_to_file lines to see the difference for each filter
 
-		final1 = filter_rectangles(formatted)
-		write_rectangles_to_file(final1, filepath, "predictions/no_duplicates.jpg")
-
+		#write_rectangles_to_file(formatted, filepath, "predictions/original.jpg")
+		final1 = filter_rectangle_duplicates(formatted)
+		#write_rectangles_to_file(final1, filepath, "predictions/no_duplicates.jpg")
 		final2 = filter_rectangle_ratios(formatted)
-		write_rectangles_to_file(final2, filepath, "predictions/no_weird_ratios.jpg")
-
+		#write_rectangles_to_file(final2, filepath, "predictions/no_weird_ratios.jpg")
 		final = filter_rectangle_ratios(final1)
-		write_rectangles_to_file(final, filepath, "predictions/no_weird_ratios_or_duplicates.jpg")
+		#write_rectangles_to_file(final, filepath, "predictions/no_weird_ratios_or_duplicates.jpg")
 
 		print(f"total: {len(formatted)}, nr of weird ratios: {len(formatted) - len(final2)}, nr of duplicates: {len(formatted) - len(final1)}, total nr after removing both: {len(final)}")
 
@@ -187,33 +191,10 @@ def predict_image(filepath, minimum_percentage, extract_detected_objects, detect
 			output += f'{len(tomatoes["non_ripe"])} non-ripe tomatoes'
 			write_rectangles_to_file(tomatoes["non_ripe"], filepath, "predictions/non_ripe.jpg")
 
-			#for non in tomatoes["non_ripe"]:
-				#print(non)
-		# in i db
 		ripeTomatoes = len(tomatoes['ripe'])
 		nonRipeTomatoes = len(tomatoes['non_ripe'])
 
-		# connect to db
-		try:
-			connection = mysql.connector.connect(host='127.0.0.1', database='tomato', user='user', password='pass', auth_plugin='mysql_native_password')
-			if connection.is_connected():
-				print("connected")
-				cursor = connection.cursor()
-				cursor.execute("")
-			else:
-				print("not connected")
-		except Error as e:
-			print(":(", e)
-		finally:
-			if(connection.is_connected()):
-				cursor.close()
-				connection.close()
-				print("connection closed")
-
-
-		print(output)
 		return tomatoes
-
 
 
 if __name__ == "__main__":
